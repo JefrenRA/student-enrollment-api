@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tap.enrollment.exception.ResourceNotFoundException;
-import org.tap.enrollment.model.Course;
 import org.tap.enrollment.model.Student;
-import org.tap.enrollment.model.Test;
-import org.tap.enrollment.repository.CourseRepository;
 import org.tap.enrollment.repository.StudentRepository;
 
 @Service
@@ -22,7 +19,6 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public Student createStudent(Student student) {
-		Test test = new Test();
 		return studentRepository.save(student);
 	}
 
