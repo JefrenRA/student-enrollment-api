@@ -1,8 +1,8 @@
-package org.tap.enrollment.service.student;
+package org.tap.enrollment.student.service;
 
 import java.util.List;
 
-import org.tap.enrollment.model.Student;
+import org.tap.enrollment.student.entity.Student;
 
 public interface StudentService {
 	Student createStudent(Student student);

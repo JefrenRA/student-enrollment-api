@@ -1,8 +1,8 @@
-package org.tap.enrollment.service.course;
+package org.tap.enrollment.course.service;
 
 import java.util.List;
 
-import org.tap.enrollment.model.Course;
+import org.tap.enrollment.course.entity.Course;
 
 public interface CourseService {
 	Course createCourse(Course course);

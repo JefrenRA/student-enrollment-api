@@ -2,10 +2,11 @@ package org.tap.enrollment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@SpringBootApplication
-@EnableWebMvc
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@SpringBootApplication                                   // This annotation enables auto-configuration and component scanning for the application
+@EnableSwagger2                                          // This annotation enables Swagger integration in the Spring Boot application
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
