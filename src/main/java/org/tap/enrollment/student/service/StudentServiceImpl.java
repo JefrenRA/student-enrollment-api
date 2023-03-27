@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tap.enrollment.exception.ResourceNotFoundException;
-import org.tap.enrollment.service.repository.StudentRepository;
 import org.tap.enrollment.student.entity.Student;
+import org.tap.enrollment.student.repository.StudentRepository;
 
 @Service 				// This is a class marked with the @Service annotation, which makes it a service component in Spring framework
 @Transactional		 	// This annotation enables transaction management for this class
