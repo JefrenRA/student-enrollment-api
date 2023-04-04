@@ -1,14 +1,8 @@
 package org.tap.enrollment.model.request.student;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -31,8 +25,6 @@ public class StudentInfoRequest implements Serializable{
 	
 	private static final long serialVersionUID = -411404243542092196L;
 	
-	@NotNull
-	@NotEmpty
 	@JsonProperty(value = "StudentId")
 	private Long studentId;
 	
@@ -61,19 +53,12 @@ public class StudentInfoRequest implements Serializable{
 	@JsonProperty(value = "Gender")
 	private String gender;
 	
-	@NotNull
-	@NotEmpty
-	@OneToOne 
 	@JsonProperty(value = "Course")
 	private Course course;
 	
-	@ManyToMany (fetch = FetchType.EAGER)
-	@JoinTable(name = "student_subject",
-			    joinColumns = { @JoinColumn(name = "studentId") },
-			    inverseJoinColumns = { @JoinColumn(name = "subjectId") })
 	@JsonProperty(value = "Subject")
-	private Set<Subject> subject = new HashSet<>();
-
+	private List<Subject> subject;
+	
 	
 	/*
 	 * Overall, this code file defines a class with six string properties that can be serialized 

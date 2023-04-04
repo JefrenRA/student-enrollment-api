@@ -52,6 +52,7 @@ public class StudentController {
 	public ResponseEntity<?> createStudent(@Valid @RequestBody StudentInfoRequest studentInfo){
 		
 		Student student = new Student();
+		student.setStudentId(studentInfo.getStudentId());
 		student.setSurName(studentInfo.getSurName());
 		student.setFirstName(studentInfo.getFirstName());
 		student.setAddress(studentInfo.getAddress());

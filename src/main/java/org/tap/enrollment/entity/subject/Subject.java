@@ -1,18 +1,11 @@
 package org.tap.enrollment.entity.subject;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.tap.enrollment.entity.student.Student;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,9 +28,6 @@ public class Subject {
 	@Column (name ="subjectDescription")
 	private String subjectDescription;
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "subject")
-	private Set<Student> student = new HashSet<>();
-
 }
 
 	// Overall, this code defines a simple entity class that can be used to interact with a database table named Course.

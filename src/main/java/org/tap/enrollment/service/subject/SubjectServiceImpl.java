@@ -54,7 +54,6 @@ public class SubjectServiceImpl implements SubjectService {
 			subjectUpdate.setSubjectId(subject.getSubjectId());
 			subjectUpdate.setSubjectCode(subject.getSubjectCode());
 			subjectUpdate.setSubjectDescription(subject.getSubjectDescription());
-			subjectUpdate.setStudent(subject.getStudent());
 			
 			return GenericResponseEntity.createSuccessEntity(subjectUpdate);
 		}

@@ -54,7 +54,6 @@ public class SubjectController {
 		Subject subject = new Subject();
 		subject.setSubjectCode(subjectInfo.getSubjectCode());
 		subject.setSubjectDescription(subjectInfo.getDescription());
-		subject.setStudent(subjectInfo.getStudent());
 		
 		return subjectService.createSubject(subject);
 	}

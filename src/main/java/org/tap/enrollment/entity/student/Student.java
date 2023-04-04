@@ -1,7 +1,6 @@
 package org.tap.enrollment.entity.student;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -49,13 +48,10 @@ public class Student {
 	@JoinColumn(name = "courseCode")					// This annotation specifies the name of the column in the database table of the entity that contains this code that will be used as the foreign key to reference the primary key of the "Course" entity. 				
 	private Course course;
 	
-	@ManyToMany (fetch = FetchType.EAGER)
-	@JoinTable(name = "student_subject",
-			    joinColumns = { @JoinColumn(name = "studentId") },
-			    inverseJoinColumns = { @JoinColumn(name = "subjectId") })
-	private Set<Subject> subject = new HashSet<>();
-
-
-
+	@OneToMany (fetch = FetchType.EAGER)
+	@JoinTable(name = "student_subject", joinColumns = {@JoinColumn(name="studentId", referencedColumnName = "studentId")}, 
+					inverseJoinColumns = {@JoinColumn(name = "subjectId", referencedColumnName = "subjectId")})
+	private List<Subject> subject;
+	
 	// Overall, this code defines a simple entity class that can be used to interact with a database table named Subject.
 }

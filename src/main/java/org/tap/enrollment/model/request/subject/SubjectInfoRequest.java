@@ -1,14 +1,10 @@
 package org.tap.enrollment.model.request.subject;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import org.tap.enrollment.entity.student.Student;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -39,12 +35,6 @@ public class SubjectInfoRequest implements Serializable{
 	@NotEmpty
 	@JsonProperty(value = "SubjectDescription")
 	private String description;
-	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "subject")
-	@JsonProperty(value = "Student")
-	private Set<Student> student = new HashSet<>();
-
-	
 	
 	/*
 	 * Overall, this code file defines a class with six string properties that can be serialized 
