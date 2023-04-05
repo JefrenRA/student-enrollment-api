@@ -19,7 +19,7 @@ import org.tap.enrollment.service.course.CourseService;
 @RestController                                                     /* This annotation indicates that it's a controller for a RESTful web service and that 
 																	 * the methods in the class should be mapped to specific HTTP endpoints
 																	 */
-@RequestMapping(value = "/enrollment")                              // This annotation sets a base URL prefix for all the endpoint mappings in the class
+@RequestMapping(value = "/course-enrollment")                              // This annotation sets a base URL prefix for all the endpoint mappings in the class
 public class CourseController {
 	
 	//This annotation indicates that Spring should inject a CourseService object into the class at runtime

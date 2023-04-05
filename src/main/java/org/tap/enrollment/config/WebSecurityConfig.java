@@ -5,43 +5,30 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] SWAGGER = { "/v2/api-docs", "/swagger-resources/", "/swagger-ui.html", "/webjars/", "favicon.ico", "/error/" };
-	@Override
-    protected void configure(HttpSecurity http) throws Exception { 
-    	http.authorizeRequests()
-	    	.antMatchers(SWAGGER)
-	        .permitAll()
-	        .antMatchers("/h2/**")
-	        .permitAll();
-	        
-    	
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-    }
 	
-	@Bean
-	public UserDetailsService userDetailsService() {
-	    UserDetails user =
-	         User.builder()
-	            .username("user")
-	            .password(passwordEncoder().encode("password"))
-	            .roles("USER")
-	            .build();
-	    	
-	    return new InMemoryUserDetailsManager(user);
-	}
+	@Override
+    public void configure(HttpSecurity http) throws Exception { 
+    	http.authorizeRequests()
+	    	.antMatchers(SWAGGER).permitAll()
+	        .antMatchers("/h2/**").permitAll()
+	        .antMatchers("/enrollment/**").hasRole("USER")
+	        .antMatchers("/course-enrollment/**").hasRole("ADMIN")
+	        .antMatchers("/subject-enrollment/**").hasRole("ADMIN")
+	        .anyRequest().authenticated().and().formLogin();
+    	
+    		http.csrf().disable();
+    		http.headers().frameOptions().disable();
+    }
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}
-} 
+}
