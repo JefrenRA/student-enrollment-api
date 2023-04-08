@@ -26,6 +26,11 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
+	@GetMapping("/")
+	public String defaultPage() {
+		return "Student Enrollment API";
+	}
+	
 	/*
 	 * This method handles HTTP GET requests to the /enrollment/get-all-students endpoint and returns a list 
 	 * of all students in the system.
