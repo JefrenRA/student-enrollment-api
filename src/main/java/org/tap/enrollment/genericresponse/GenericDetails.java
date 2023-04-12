@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class GenericDetails<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@JsonProperty("Header")
 	private Header header;
 
@@ -23,13 +23,13 @@ public class GenericDetails<T> implements Serializable {
 	public GenericDetails(Integer statusCode, String status) {
 		this.header = new Header(generateDate(), statusCode, status);
 	}
-	
+
 	private String generateDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		return currentDateTime.format(formatter);
 	}
-	
+
 	class Header {
 		@JsonProperty("DateTime")
 		private String dateTime;

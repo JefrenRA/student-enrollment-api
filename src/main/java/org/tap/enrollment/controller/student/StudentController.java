@@ -1,6 +1,7 @@
 package org.tap.enrollment.controller.student;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,46 +17,46 @@ import org.tap.enrollment.entity.student.Student;
 import org.tap.enrollment.model.request.student.StudentInfoRequest;
 import org.tap.enrollment.service.student.StudentService;
 
-@RestController                                                     /* This annotation indicates that it's a controller for a RESTful web service and that 
+@RestController                                                     /* This annotation indicates that it's a controller for a RESTful web service and that
 																	 * the methods in the class should be mapped to specific HTTP endpoints
 																	 */
 @RequestMapping(value = "/enrollment")                              // This annotation sets a base URL prefix for all the endpoint mappings in the class
 public class StudentController {
-	
+
 	//This annotation indicates that Spring should inject a StudentService object into the class at runtime
 	@Autowired
 	private StudentService studentService;
-	
+
 	@GetMapping("/")
 	public String defaultPage() {
 		return "Student Enrollment API";
 	}
-	
+
 	/*
-	 * This method handles HTTP GET requests to the /enrollment/get-all-students endpoint and returns a list 
+	 * This method handles HTTP GET requests to the /enrollment/get-all-students endpoint and returns a list
 	 * of all students in the system.
 	 */
 	@GetMapping("/get-all-students")
 	public ResponseEntity<?> getAllStudentsInfo(){
 		return studentService.getAllStudentsInfo();
 	}
-	
+
 	/*
-	 * This method handles HTTP GET requests to the /enrollment/get-student/{id} endpoint and 
+	 * This method handles HTTP GET requests to the /enrollment/get-student/{id} endpoint and
 	 * returns the student with the specified id.
 	 */
 	@GetMapping("/get-student/{id}")
 	public ResponseEntity<?> getStudentById(@PathVariable long id){
 		return studentService.getStudentById(id);
 	}
-	
+
 	/*
-	 * This method handles HTTP POST requests to the /enrollment/create-student endpoint and creates a new 
+	 * This method handles HTTP POST requests to the /enrollment/create-student endpoint and creates a new
 	 * student in the system based on the information provided in the request body.
 	 */
 	@PostMapping("/create-student")
 	public ResponseEntity<?> createStudent(@Valid @RequestBody StudentInfoRequest studentInfo){
-		
+
 		Student student = new Student();
 		student.setStudentId(studentInfo.getStudentId());
 		student.setSurName(studentInfo.getSurName());
@@ -65,10 +66,10 @@ public class StudentController {
 		student.setGender(studentInfo.getGender());
 		student.setCourse(studentInfo.getCourse());
 		student.setSubject(studentInfo.getSubject());
-		
+
 		return studentService.createStudent(student);
 	}
-	
+
 	/*
 	 * This method handles HTTP PUT requests to the /enrollment/update-student/{id} endpoint and updates the
 	 * student with the specified id based on the information provided in the request body.
@@ -91,6 +92,6 @@ public class StudentController {
 }
 
 	/*
-	 * Each endpoint returns a ResponseEntity object, which is a container for the HTTP response 
-	 * that allows you to set the status code, headers, and body of the response. 
+	 * Each endpoint returns a ResponseEntity object, which is a container for the HTTP response
+	 * that allows you to set the status code, headers, and body of the response.
 	 */

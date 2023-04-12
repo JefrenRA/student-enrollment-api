@@ -19,3 +19,6 @@ INSERT INTO STUDENT(student_id, address, dob, firstname, gender, surname, course
 INSERT INTO STUDENT_SUBJECT(student_id, subject_id) VALUES (2019200393, 0);
 
 INSERT INTO STUDENT_SUBJECT(student_id, subject_id) VALUES (2019200387, 2);
+
+INSERT INTO ACCOUNT (id, username, password, role) VALUES (1, 'user1', 'pass1', 'USER');
+INSERT INTO ACCOUNT (id, username, password, role) VALUES (2, 'admin1', 'pass1', 'ADMIN');

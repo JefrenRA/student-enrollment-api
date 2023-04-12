@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication                                   // This annotation enables auto-configuration and component scanning for the application
-@EnableSwagger2                                          // This annotation enables Swagger integration in the Spring Boot application
+@SpringBootApplication                                     // This annotation enables Swagger integration in the Spring Boot application
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

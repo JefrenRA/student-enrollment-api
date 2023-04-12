@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity 											// This annotation indicates that this class maps to a database table
 @Table(name="Course") 								// This annotation specifies the name of the table
-@AllArgsConstructor     							// These annotations generate constructors with all arguments and no arguments, respectively. 
+@AllArgsConstructor     							// These annotations generate constructors with all arguments and no arguments, respectively.
 @NoArgsConstructor      							// It further reduce code and simplify object instantiation.
 @Getter
 @Setter                 							// These annotations generates getter and setter methods for the fields of the class automatically
