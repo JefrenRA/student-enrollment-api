@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,9 +22,6 @@ import org.tap.enrollment.repository.account.AccountRepository;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] SWAGGER = { "/v2/api-docs", "/swagger-resources/", "/swagger-ui.html", "/webjars/", "favicon.ico", "/error/" };
-
-	@Autowired
-    private CustomAccessDeniedHandler customAccessDeniedHandler;
 	
 	@Autowired
 	private AccountRepository accRepository;
@@ -31,29 +29,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
     public void configure(HttpSecurity http) throws Exception {
-    	http.authorizeRequests()
+    	http.csrf().disable()
+    		.headers().frameOptions().disable()
+            .and()
+    		.authorizeRequests() 
+    		.antMatchers("/h2/**").permitAll()
 	    	.antMatchers(SWAGGER).permitAll()
-	        .antMatchers("/h2/**").permitAll()
-	        .antMatchers("/enrollment/**").hasRole("USER")
-	        .antMatchers("/course-enrollment/**").hasRole("ADMIN")
-	        .antMatchers("/subject-enrollment/**").hasRole("ADMIN")
-	        .antMatchers("/account/**").hasRole("ADMIN")
-	        .anyRequest().authenticated().and()
-	        .formLogin().permitAll()
-            .and()
-            .logout().logoutUrl("/").permitAll()
-            .and()
-            .exceptionHandling()
-            .accessDeniedHandler(customAccessDeniedHandler);
-
-    		http.csrf().disable();
-    		http.headers().frameOptions().disable();
+	        .antMatchers("/enrollment/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+	        .antMatchers("/course-enrollment/**").hasAuthority("ROLE_ADMIN")
+	        .antMatchers("/subject-enrollment/**").hasAuthority("ROLE_ADMIN")
+	        .antMatchers("/account/**").hasAuthority("ROLE_ADMIN")
+	        .anyRequest().authenticated();
+	        
     }
-
+	
 	@Override
-	@Bean
-	public UserDetailsService userDetailsService() {
-		InMemoryUserDetailsManager inMemoryUser = new InMemoryUserDetailsManager();
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		
 		long totalRecord = accRepository.count();
 		long id = 1;
@@ -62,20 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        if(user.isPresent()) {
 	        	Account acc = user.get();
 	        	
-	        	UserDetails userDetails =  User.withUsername(acc.getUsername())
-									.password(passwordEncoder().encode(acc.getPassword()))
-									.roles(acc.getRole()).build();
-	        	
-	        	inMemoryUser.createUser(userDetails);
+	        	auth.inMemoryAuthentication()
+					.withUser(acc.getUsername())
+					.password(passwordEncoder().encode(acc.getPassword()))
+					.authorities("ROLE_"+ acc.getRole());
 	        }
 	        id++;
 		}
-		
-	    return inMemoryUser;
 	}
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 }

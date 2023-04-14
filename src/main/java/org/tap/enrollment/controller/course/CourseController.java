@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tap.enrollment.entity.course.Course;
 import org.tap.enrollment.model.request.course.CourseInfoRequest;
 import org.tap.enrollment.service.course.CourseService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 @RestController                                                     /* This annotation indicates that it's a controller for a RESTful web service and that
 																	 * the methods in the class should be mapped to specific HTTP endpoints
@@ -41,7 +47,7 @@ public class CourseController {
 	 * returns the course with the specified id.
 	 */
 	@GetMapping("/get-course/{courseCode}")
-	public ResponseEntity<?> getCoursetByCode(@PathVariable String courseCode){
+	public ResponseEntity<?> getCourseByCode(@PathVariable String courseCode){
 		return courseService.getCourseByCode(courseCode);
 	}
 
