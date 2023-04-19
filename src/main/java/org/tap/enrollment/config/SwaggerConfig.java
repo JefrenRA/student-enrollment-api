@@ -1,20 +1,15 @@
 package org.tap.enrollment.config;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.google.common.net.HttpHeaders;
-
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.BasicAuth;
 import springfox.documentation.service.SecurityReference;
@@ -35,14 +30,23 @@ public class SwaggerConfig implements WebMvcConfigurer{
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
+                .apiInfo(apiInfo())
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(basicAuthScheme()));
    }
+    
+    private ApiInfo apiInfo() {
+
+        return new ApiInfoBuilder()
+                .title("Student Enrollment API")
+                .description("Student Enrollment API Documentation")
+                .build();
+    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(Arrays.asList(basicAuthReference()))
-                .forPaths(PathSelectors.ant("/.*"))
+                .forPaths(PathSelectors.any())
                 .build();
     }
 
